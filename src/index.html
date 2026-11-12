@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'" />
+  <title>Ulising Launcher</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-bg" id="appBg"></div>
+
+  <header class="titlebar">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" class="brand-logo" aria-hidden="true">
+        <path d="M4 6h8l4 10 4-10h8L18 28h-4z" fill="var(--accent)"/>
+        <path d="M12 6h8l-4 10z" fill="var(--accent2)"/>
+      </svg>
+      <span>ULISING<b>LAUNCHER</b></span>
+    </div>
+    <div class="titlebar-status" id="activeBadge"></div>
+    <div class="window-controls">
+      <button data-win="minimize" title="Minimizar"><svg viewBox="0 0 12 12"><path d="M2 6h8"/></svg></button>
+      <button data-win="maximize" title="Maximizar"><svg viewBox="0 0 12 12"><rect x="2" y="2" width="8" height="8"/></svg></button>
+      <button data-win="close" class="close" title="Fechar"><svg viewBox="0 0 12 12"><path d="M2 2l8 8M10 2l-8 8"/></svg></button>
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <button class="nav-btn active" data-view="themes" title="Estilos">
+      <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.8 1.6-1.6 0-.5-.2-.8-.4-1.1-.3-.3-.4-.6-.4-1.1 0-.9.7-1.6 1.6-1.6H16a5 5 0 0 0 5-5c0-4.2-4-7.6-9-7.6z"/><circle cx="7.5" cy="11" r="1.3"/><circle cx="10" cy="7.2" r="1.3"/><circle cx="14.5" cy="7.2" r="1.3"/></svg>
+      <span>Estilos</span>
+    </button>
+    <button class="nav-btn" data-view="editor" title="Personalizar">
+      <svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
+      <span>Personalizar</span>
+    </button>
+    <button class="nav-btn" data-view="games" title="Jogos">
+      <svg viewBox="0 0 24 24"><path d="M6 8h12a4 4 0 0 1 4 4v1.5A3.5 3.5 0 0 1 15.8 15l-.8-1H9l-.8 1A3.5 3.5 0 0 1 2 13.5V12a4 4 0 0 1 4-4z"/><path d="M7 11v3M5.5 12.5h3"/><circle cx="16" cy="11.5" r=".8"/><circle cx="18" cy="13" r=".8"/></svg>
+      <span>Jogos</span>
+    </button>
+    <div class="nav-spacer"></div>
+    <button class="nav-btn" data-view="settings" title="Ajustes">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      <span>Ajustes</span>
+    </button>
+  </nav>
+
+  <main class="content">
+    <!-- ESTILOS -->
+    <section class="view active" id="view-themes">
+      <div class="hero" id="hero"></div>
+      <div class="section-head">
+        <div>
+          <h2>Galeria de estilos</h2>
+          <p class="muted">Papel de parede, cores do Windows e barra de tarefas — tudo em um clique.</p>
+        </div>
+        <div class="chips" id="categoryChips"></div>
+      </div>
+      <div class="theme-grid" id="themeGrid"></div>
+    </section>
+
+    <!-- PERSONALIZAR -->
+    <section class="view" id="view-editor">
+      <div class="editor">
+        <div class="editor-preview">
+          <div class="editor-title">
+            <div>
+              <span class="eyebrow" id="editorCategory"></span>
+              <h2 id="editorName"></h2>
+              <p class="muted" id="editorTagline"></p>
+            </div>
+            <div class="editor-theme-select">
+              <label class="muted small" for="themeSelect">Tema base</label>
+              <select id="themeSelect"></select>
+            </div>
+          </div>
+          <div class="screen" id="screen">
+            <canvas id="previewCanvas" width="1280" height="720"></canvas>
+            <img id="previewImage" alt="" hidden />
+            <div class="mock-window" id="mockWindow">
+              <div class="mock-titlebar"><span>Explorador de Arquivos</span><i></i><i></i><i></i></div>
+              <div class="mock-body"><div></div><div></div><div></div></div>
+            </div>
+            <div class="mock-taskbar" id="mockTaskbar">
+              <div class="mock-tb-items">
+                <span class="tb-start"><i></i><i></i><i></i><i></i></span>
+                <span class="tb-search"></span>
+                <span class="tb-taskview"></span>
+                <span class="tb-widgets"></span>
+                <span class="tb-app a1"></span><span class="tb-app a2 running"></span><span class="tb-app a3"></span><span class="tb-app a4 running"></span>
+              </div>
+              <div class="mock-tray"><span></span><span></span><b>21:47</b></div>
+            </div>
+            <div class="autohide-hint" id="autohideHint">Barra oculta — aparece ao passar o mouse</div>
+          </div>
+          <div class="preview-actions">
+            <button class="btn ghost" id="btnReseed" title="Gerar nova variação do papel de parede">
+              <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg> Nova variação
+            </button>
+            <button class="btn ghost" id="btnExport">
+              <svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg> Salvar imagem
+            </button>
+            <button class="btn ghost" id="btnSaveTheme">
+              <svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5zM8 3v6h8V3M8 21v-7h8v7"/></svg> Salvar como meu tema
+            </button>
+          </div>
+        </div>
+
+        <aside class="editor-panel">
+          <div class="panel-group">
+            <h3><input type="checkbox" id="applyWallpaper" checked /> <label for="applyWallpaper">Papel de parede</label></h3>
+            <div class="segmented" id="wallpaperSource">
+              <button data-value="generated" class="active">Gerado pelo tema</button>
+              <button data-value="image">Imagem própria</button>
+            </div>
+            <div class="image-pick" id="imagePick" hidden>
+              <button class="btn ghost small" id="btnPickImage">Escolher imagem…</button>
+              <span class="muted small" id="imageName">Nenhuma imagem</span>
+            </div>
+            <label class="field">
+              <span>Ajuste</span>
+              <select id="wallpaperStyle">
+                <option value="fill">Preencher</option>
+                <option value="fit">Ajustar</option>
+                <option value="stretch">Ampliar</option>
+                <option value="center">Centralizar</option>
+                <option value="span">Estender (multi-monitor)</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="panel-group">
+            <h3><input type="checkbox" id="applyColors" checked /> <label for="applyColors">Cores do Windows</label></h3>
+            <div class="field">
+              <span>Cor de destaque</span>
+              <div class="accent-row">
+                <input type="color" id="accentColor" />
+                <div class="swatches" id="swatches"></div>
+              </div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="darkMode" /><i></i><span>Modo escuro</span></label>
+            <label class="toggle"><input type="checkbox" id="transparency" /><i></i><span>Efeitos de transparência</span></label>
+            <label class="toggle"><input type="checkbox" id="accentOnTaskbar" /><i></i><span>Cor de destaque no Iniciar e na barra de tarefas</span></label>
+            <label class="toggle"><input type="checkbox" id="accentOnTitleBars" /><i></i><span>Cor de destaque nas barras de título</span></label>
+            <p class="hint" id="lightHint" hidden>No modo claro o Windows não pinta a barra de tarefas com a cor de destaque.</p>
+          </div>
+
+          <div class="panel-group">
+            <h3><input type="checkbox" id="applyTaskbar" checked /> <label for="applyTaskbar">Barra de tarefas</label></h3>
+            <div class="field">
+              <span>Alinhamento (Windows 11)</span>
+              <div class="segmented" id="taskbarAlign">
+                <button data-value="center">Centro</button>
+                <button data-value="left">Esquerda</button>
+              </div>
+            </div>
+            <div class="field">
+              <span>Pesquisa</span>
+              <div class="segmented" id="taskbarSearch">
+                <button data-value="hidden">Oculta</button>
+                <button data-value="icon">Ícone</button>
+                <button data-value="box">Caixa</button>
+              </div>
+            </div>
+            <label class="toggle"><input type="checkbox" id="autoHide" /><i></i><span>Ocultar automaticamente</span></label>
+            <label class="toggle"><input type="checkbox" id="taskView" /><i></i><span>Botão Visão de Tarefas</span></label>
+            <label class="toggle"><input type="checkbox" id="widgets" /><i></i><span>Widgets</span></label>
+            <label class="toggle"><input type="checkbox" id="restartExplorer" /><i></i><span>Reiniciar o Explorer após aplicar (efeito imediato)</span></label>
+          </div>
+
+          <button class="btn primary big" id="btnApply">
+            <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg> Aplicar no Windows
+          </button>
+          <p class="hint center" id="platformHint" hidden></p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- JOGOS -->
+    <section class="view" id="view-games">
+      <div class="section-head">
+        <div>
+          <h2>Biblioteca de jogos</h2>
+          <p class="muted">Adicione executáveis, atalhos ou links (steam://, Epic, Battle.net…) e jogue direto daqui.</p>
+        </div>
+        <div class="head-actions">
+          <input type="search" id="gameSearch" placeholder="Buscar jogo…" />
+          <button class="btn ghost" id="btnAddLink">+ Link</button>
+          <button class="btn primary" id="btnAddGame">+ Adicionar jogo</button>
+        </div>
+      </div>
+      <div class="game-grid" id="gameGrid"></div>
+    </section>
+
+    <!-- AJUSTES -->
+    <section class="view" id="view-settings">
+      <div class="section-head"><div><h2>Ajustes</h2><p class="muted">Backup e restauração do visual original do Windows.</p></div></div>
+      <div class="settings-grid">
+        <div class="card">
+          <h3>Backup do estilo original</h3>
+          <p class="muted" id="backupStatus"></p>
+          <p class="muted small">Antes do primeiro tema aplicado, o launcher salva automaticamente seu papel de parede, cores e configurações da barra de tarefas.</p>
+          <div class="row">
+            <button class="btn primary" id="btnRestore">Restaurar Windows original</button>
+            <button class="btn ghost" id="btnBackup">Refazer backup agora</button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Última aplicação</h3>
+          <ul class="log" id="applyLog"><li class="muted">Nenhum tema aplicado nesta sessão.</li></ul>
+        </div>
+        <div class="card">
+          <h3>Sobre</h3>
+          <p class="muted" id="aboutText"></p>
+          <p class="muted small">Todas as alterações são feitas apenas no seu usuário (HKCU) e não exigem permissão de administrador.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="linkModal" hidden>
+    <form class="modal-card" id="linkForm">
+      <h3>Adicionar jogo por link</h3>
+      <label class="field"><span>Nome</span><input id="linkName" required placeholder="Ex.: Counter-Strike 2" /></label>
+      <label class="field"><span>Link ou caminho</span><input id="linkTarget" required placeholder="steam://rungameid/730" /></label>
+      <div class="row end">
+        <button type="button" class="btn ghost" id="linkCancel">Cancelar</button>
+        <button type="submit" class="btn primary">Adicionar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="busy" id="busy" hidden><div class="spinner"></div><span id="busyText">Aplicando estilo…</span></div>
+  <div class="toasts" id="toasts"></div>
+
+  <script src="themes.js"></script>
+  <script src="wallpapers.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

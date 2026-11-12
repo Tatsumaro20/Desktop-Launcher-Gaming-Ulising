@@ -1,0 +1,32 @@
+{
+  "name": "ulising-launcher",
+  "productName": "Ulising Launcher",
+  "version": "1.0.0",
+  "description": "Launcher de desktop gamer que troca papel de parede, cores do Windows e a barra de tarefas com estilos Gamer, Tecnológico, Minimalista, Anime e mais.",
+  "main": "main.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win",
+    "dist:portable": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "33.2.1",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "com.ulising.launcher",
+    "productName": "Ulising Launcher",
+    "files": ["main.js", "preload.js", "src/**/*"],
+    "extraResources": [
+      { "from": "scripts/windows", "to": "scripts" }
+    ],
+    "win": {
+      "target": ["nsis", "portable"]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
