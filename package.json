@@ -6,6 +6,7 @@
   "main": "main.js",
   "license": "MIT",
   "scripts": {
+    "postinstall": "node node_modules/electron/install.js",
     "start": "electron .",
     "dist": "electron-builder --win",
     "dist:portable": "electron-builder --win portable"
@@ -17,12 +18,22 @@
   "build": {
     "appId": "com.ulising.launcher",
     "productName": "Ulising Launcher",
-    "files": ["main.js", "preload.js", "src/**/*"],
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*"
+    ],
     "extraResources": [
-      { "from": "scripts/windows", "to": "scripts" }
+      {
+        "from": "scripts/windows",
+        "to": "scripts"
+      }
     ],
     "win": {
-      "target": ["nsis", "portable"]
+      "target": [
+        "nsis",
+        "portable"
+      ]
     },
     "nsis": {
       "oneClick": false,

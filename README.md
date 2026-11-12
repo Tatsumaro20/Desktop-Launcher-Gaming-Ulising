@@ -32,6 +32,14 @@ npm install
 npm start
 ```
 
+Se aparecer `Electron failed to install correctly`, o download do Electron não terminou. Rode:
+
+```bash
+node node_modules/electron/install.js
+```
+
+e depois `npm start` de novo.
+
 ### Gerar o instalador `.exe`
 
 ```bash
